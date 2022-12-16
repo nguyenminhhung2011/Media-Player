@@ -80,16 +80,49 @@
 
                             <uc:SongListItem Number="01" Title="Love Yourself" Time="03:30"/>
                             <uc:SongListItem Number="02" Title="See Your Again" Time="03:30"/>
-                            <!--<uc:SongListItem Number="03" Title="Bull shit" Time="03:30"/>
+                            <uc:SongListItem Number="03" Title="Bull shit" Time="03:30"/>
                             <uc:SongListItem Number="04" Title="Rap god" Time="03:30"/>
                             <uc:SongListItem Number="05" Title="End of day" Time="03:30"/>
                             <uc:SongListItem Number="06" Title="Still in love" Time="03:30"/>
                             <uc:SongListItem Number="07" Title="Hero" Time="03:30"/>
-                            <uc:SongListItem Number="07" Title="Hero" Time="03:30"/>-->
+                            <uc:SongListItem Number="07" Title="Hero" Time="03:30"/>
                         </StackPanel>
                     </Grid>
                 </Border>
             </StackPanel>
+
+            <Border Grid.Row="1" 
+                    Grid.Column="1" 
+                    Grid.ColumnSpan="2" 
+                    Background="#03bf69" 
+                    CornerRadius="40 0 0 0">
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Width="60" Height="60" Margin="30 0 0 0">
+                        <!--<Ellipse.Fill>
+                            <ImageBrush ImageSource="/Images/173e97cc61c1b89fe1d0.jpg"/>
+                        </Ellipse.Fill>-->
+                    </Ellipse>
+                    <StackPanel VerticalAlignment="Center" Margin="20 0 30 0">
+                        <TextBlock Text="ME" Foreground="White" FontSize="22" FontWeight="Bold"/>
+                        <TextBlock Text="Taylor Swift" Foreground="#9ae5c3" FontSize="18" FontWeight="SemiBold"/>
+                    </StackPanel>
+                    <Button Style="{StaticResource playerButton}">
+                        <Icon:PackIconMaterial Kind="SkipPrevious" Height="17" Width="17"/>
+                    </Button>
+                    
+                    <Button Style="{StaticResource playerButton}">
+                        <Icon:PackIconMaterial Kind="Pause" Height="17" Width="17"/>
+                    </Button>
+                    <Button Style="{StaticResource playerButton}">
+                        <Icon:PackIconMaterial Kind="SkipNext" Height="17" Width="17"/>
+                    </Button>
+
+                    <Slider x:Name="slider" IsSelectionRangeEnabled="True" VerticalAlignment="Center" Value="5" Width="350" SelectionEnd="{Binding ElementName=slider,Path=Value}"/>
+                    <Button Style="{StaticResource playerButton}">
+                        <Icon:PackIconMaterial Kind="VolumeMedium" Height="17" Width="17"/>
+                    </Button>
+                </StackPanel>
+            </Border>
         </Grid>
     </Border>
 </Window>
