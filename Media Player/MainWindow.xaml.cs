@@ -24,5 +24,10 @@ namespace Media_Player
         {
             InitializeComponent();
         }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

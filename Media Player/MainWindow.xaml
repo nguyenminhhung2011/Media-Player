@@ -4,9 +4,92 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Media_Player"
+        xmlns:Icon ="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:uc ="clr-namespace:Media_Player.UserControls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="700" Width="1050"
+        WindowStyle="None"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        >
+    <Border Background="White" CornerRadius="40" MouseDown="Border_MouseDown">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-    </Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            
+            <!--Menu-->
+            <Border Background="#F6FDF9" CornerRadius="40 0 0 40" Grid.RowSpan="2">
+                <StackPanel Margin="0 30 0 0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="63 10 0 10">
+                        <Ellipse Fill="#ff6258" Width="10" Height="10"/>
+                        <Ellipse Fill="#ffbf2f" Width="10" Height="10" Margin="7 0"/>
+                        <Ellipse Fill="#2acb42" Width="10" Height="10"/>
+                    </StackPanel>
+
+                    <TextBlock Text="LIBRARY" Style="{StaticResource menuTitle}"/>
+
+                    <Button Style="{StaticResource menuButton}" Background="#02be68" Foreground="White">
+                        <Grid>
+                            <TextBlock Text="Home" Margin="0 0 0 2"/>
+                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}" Visibility="Visible" Margin="120,0,0,0"/> 
+                        </Grid>
+                    </Button>
+                    <Button Style="{StaticResource menuButton}" >
+                        <Grid>
+                            <TextBlock Text="Playlist" Margin="0 0 0 2"/>
+                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}" Margin="120,0,0,0"/>
+                        </Grid>
+                    </Button>
+                    
+                </StackPanel>                
+            </Border>
+        
+            <!-- Music Section-->
+            <StackPanel Grid.Column="1" Background="White" Margin="40 60 10 0">
+                <TextBlock Text="Home" Style="{StaticResource titleText}"/>
+
+                <Border CornerRadius="20" Margin="0 20 0 0" 
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch" >
+                    <Border.Background>
+                        <LinearGradientBrush>
+                            <GradientStop Color="#30ad9a" Offset="0"/>
+                            <GradientStop Color="#18c274" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="20" ShadowDepth="0" Opacity="0.4" Color="#1fae7e"/>
+                    </Border.Effect>
+
+                    <Grid>
+                        <Border Opacity="0.07" CornerRadius="20"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch">
+                        </Border>
+                        <StackPanel Margin="30">
+                            <TextBlock Text="Daily Songs" FontWeight="Bold" FontSize="24" Foreground="White"/>
+
+                            <uc:SongListItem Number="01" Title="Love Yourself" Time="03:30"/>
+                            <uc:SongListItem Number="02" Title="See Your Again" Time="03:30"/>
+                            <!--<uc:SongListItem Number="03" Title="Bull shit" Time="03:30"/>
+                            <uc:SongListItem Number="04" Title="Rap god" Time="03:30"/>
+                            <uc:SongListItem Number="05" Title="End of day" Time="03:30"/>
+                            <uc:SongListItem Number="06" Title="Still in love" Time="03:30"/>
+                            <uc:SongListItem Number="07" Title="Hero" Time="03:30"/>
+                            <uc:SongListItem Number="07" Title="Hero" Time="03:30"/>-->
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Border>
 </Window>
