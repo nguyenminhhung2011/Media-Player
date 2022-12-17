@@ -65,11 +65,13 @@ namespace Media_Player
             {
                 iconPlayMedia.Kind = PackIconMaterialKind.Pause;
                 _playing= false;
+                player.Pause();
             }
             else
             {
                 iconPlayMedia.Kind = PackIconMaterialKind.Play;
                 _playing= true;
+                player.Play();
             }
         }
     }
