@@ -93,19 +93,15 @@
                                         Margin="152,0,0,-8" 
                                         Foreground="White">
                                     <Grid Margin="3 ">
-                                        <TextBlock Text="Selecct File"/>
+                                        <TextBlock Text="Select File"/>
                                     </Grid>
                                 </Button>
                             </Grid>
-
-                            <uc:SongListItem Number="01" Title="Love Yourself" Time="03:30"/>
-                            <uc:SongListItem Number="02" Title="See Your Again" Time="03:30"/>
-                            <uc:SongListItem Number="03" Title="Bull shit" Time="03:30"/>
-                            <uc:SongListItem Number="04" Title="Rap god" Time="03:30"/>
-                            <uc:SongListItem Number="05" Title="End of day" Time="03:30"/>
-                            <uc:SongListItem Number="06" Title="Still in love" Time="03:30"/>
-                            <uc:SongListItem Number="07" Title="Hero" Time="03:30"/>
-                            <uc:SongListItem Number="07" Title="Hero" Time="03:30"/>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" Height="327">
+								<StackPanel Name="SongList">
+									
+								</StackPanel>
+                            </ScrollViewer>
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -130,10 +126,10 @@
                         <Icon:PackIconMaterial Kind="SkipPrevious" Height="17" Width="17"/>
                     </Button>
 
-                    <Button Style="{StaticResource playerButton}">
-                        <Icon:PackIconMaterial Kind="Pause" Height="17" Width="17"/>
+                    <Button Style="{StaticResource playerButton}" Name="playMedia" Click="playMedia_Click">
+                        <Icon:PackIconMaterial Name="iconPlayMedia" Kind="Play" Height="17" Width="17"/>
                     </Button>
-                    <Button Style="{StaticResource playerButton}">
+                    <Button Style="{StaticResource playerButton}" Name="nextMedia" Click="nextMedia_Click">
                         <Icon:PackIconMaterial Kind="SkipNext" Height="17" Width="17"/>
                     </Button>
 
@@ -149,6 +145,7 @@
                     <DropShadowEffect BlurRadius="20" ShadowDepth="0" Opacity="0.4" Color="Black"/>
                 </Border.Effect>
                 <MediaElement  
+                                Source=""
                                 LoadedBehavior="Manual" 
                                 Name="player" 
                                 Width="400" 
