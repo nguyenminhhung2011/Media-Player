@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Media_Player
 {
@@ -20,6 +23,8 @@ namespace Media_Player
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string _currentPlaying = string.Empty;
+        private bool _playing = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -28,6 +33,16 @@ namespace Media_Player
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
 
+        }
+
+        private void Selct_file_button_Click(object sender, RoutedEventArgs e)
+        {
+            var screen = new OpenFileDialog();
+            if(screen.ShowDialog() == true)
+            {
+                _currentPlaying = screen.FileName;
+                
+            }
         }
     }
 }
