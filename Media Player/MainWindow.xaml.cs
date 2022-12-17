@@ -1,6 +1,8 @@
-﻿using Microsoft.Win32;
+﻿using MahApps.Metro.IconPacks;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -25,9 +27,20 @@ namespace Media_Player
     {
         private string _currentPlaying = string.Empty;
         private bool _playing = false;
+        private string _playorPause = "Play";
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = this;    
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string newName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(newName));
+            }
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -42,6 +55,21 @@ namespace Media_Player
             {
                 _currentPlaying = screen.FileName;
                 
+            }
+        }
+        private void playMedia_Click(object sender, RoutedEventArgs e)
+        {
+            Binding binding = new Binding("Kind");
+            binding.Source = playMedia;
+            if(_playing == true)
+            {
+                iconPlayMedia.Kind = PackIconMaterialKind.Pause;
+                _playing= false;
+            }
+            else
+            {
+                iconPlayMedia.Kind = PackIconMaterialKind.Play;
+                _playing= true;
             }
         }
     }
