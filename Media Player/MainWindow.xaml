@@ -24,7 +24,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
-            
+
             <!--Menu-->
             <Border Background="#F6FDF9" CornerRadius="40 0 0 40" Grid.RowSpan="2">
                 <StackPanel Margin="0 30 0 0">
@@ -39,7 +39,7 @@
                     <Button Style="{StaticResource menuButton}" Background="#02be68" Foreground="White">
                         <Grid>
                             <TextBlock Text="Home" Margin="0 0 0 2"/>
-                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}" Visibility="Visible" Margin="120,0,0,0"/> 
+                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}" Visibility="Visible" Margin="120,0,0,0"/>
                         </Grid>
                     </Button>
                     <Button Style="{StaticResource menuButton}" >
@@ -48,10 +48,10 @@
                             <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}" Margin="120,0,0,0"/>
                         </Grid>
                     </Button>
-                    
-                </StackPanel>                
+
+                </StackPanel>
             </Border>
-        
+
             <!-- Music Section-->
             <StackPanel Grid.Column="1" Background="White" Margin="40 60 10 0">
                 <TextBlock Text="Home" Style="{StaticResource titleText}"/>
@@ -76,26 +76,36 @@
                                 VerticalAlignment="Stretch">
                         </Border>
                         <StackPanel Margin="30">
-                            <TextBlock Text="Daily Songs" FontWeight="Bold" FontSize="24" Foreground="White"/>
-                            <ScrollViewer>
-                                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" MaxHeight="300">
-                                    <uc:SongListItem Number="01" Title="Love Yourself" Time="03:30"/>
-                                    <uc:SongListItem Number="02" Title="See Your Again" Time="03:30"/>
-                                    <uc:SongListItem Number="03" Title="Bull shit" Time="03:30"/>
-                                    <uc:SongListItem Number="04" Title="Rap god" Time="03:30"/>
-                                    <uc:SongListItem Number="05" Title="End of day" Time="03:30"/>
-                                    <uc:SongListItem Number="06" Title="Still in love" Time="03:30"/>
-                                    <uc:SongListItem Number="07" Title="Hero" Time="03:30"/>
-                                    <uc:SongListItem Number="07" Title="Hero" Time="03:30"/>
-                                    <uc:SongListItem Number="07" Title="Hero" Time="03:30"/>
-                                    <uc:SongListItem Number="07" Title="Hero" Time="03:30"/>
-                                    <uc:SongListItem Number="07" Title="Hero" Time="03:30"/>
-                                    <uc:SongListItem Number="07" Title="Hero" Time="03:30"/>
-                                    <uc:SongListItem Number="07" Title="Hero" Time="03:30"/>
-                                    <uc:SongListItem Number="07" Title="Hero" Time="03:30"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
 
-                                </StackPanel>
-                            </ScrollViewer>
+                                <TextBlock Grid.Column="0">
+                                    <TextBlock Text="Daily Songs" FontWeight="Bold" FontSize="24" Foreground="White"/>
+                                </TextBlock>
+
+                                <Button Style="{StaticResource normalButton}" 
+                                        Grid.ColumnSpan="2" 
+                                        x:Name="Selct_file_button"
+                                        Click="Selct_file_button_Click"
+                                        Margin="152,0,0,-8" 
+                                        Foreground="White">
+                                    <Grid Margin="3 ">
+                                        <TextBlock Text="Selecct File"/>
+                                    </Grid>
+                                </Button>
+                            </Grid>
+
+                            <uc:SongListItem Number="01" Title="Love Yourself" Time="03:30"/>
+                            <uc:SongListItem Number="02" Title="See Your Again" Time="03:30"/>
+                            <uc:SongListItem Number="03" Title="Bull shit" Time="03:30"/>
+                            <uc:SongListItem Number="04" Title="Rap god" Time="03:30"/>
+                            <uc:SongListItem Number="05" Title="End of day" Time="03:30"/>
+                            <uc:SongListItem Number="06" Title="Still in love" Time="03:30"/>
+                            <uc:SongListItem Number="07" Title="Hero" Time="03:30"/>
+                            <uc:SongListItem Number="07" Title="Hero" Time="03:30"/>
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -105,7 +115,7 @@
                     Grid.Column="1" 
                     Grid.ColumnSpan="2" 
                     Background="#03bf69" 
-                    CornerRadius="40 0 0 0">
+                    CornerRadius="40 0 40 0">
                 <StackPanel Orientation="Horizontal">
                     <Ellipse Width="60" Height="60" Margin="30 0 0 0">
                         <!--<Ellipse.Fill>
@@ -119,7 +129,7 @@
                     <Button Style="{StaticResource playerButton}">
                         <Icon:PackIconMaterial Kind="SkipPrevious" Height="17" Width="17"/>
                     </Button>
-                    
+
                     <Button Style="{StaticResource playerButton}">
                         <Icon:PackIconMaterial Kind="Pause" Height="17" Width="17"/>
                     </Button>
@@ -132,6 +142,18 @@
                         <Icon:PackIconMaterial Kind="VolumeMedium" Height="17" Width="17"/>
                     </Button>
                 </StackPanel>
+            </Border>
+
+            <Border Grid.Column="2" Margin="10,134,10,56" Background="White" CornerRadius="20">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="20" ShadowDepth="0" Opacity="0.4" Color="Black"/>
+                </Border.Effect>
+                <MediaElement  
+                                LoadedBehavior="Manual" 
+                                Name="player" 
+                                Width="400" 
+                                Canvas.Left="70" 
+                                Margin="8,14,-3,23"/>
             </Border>
         </Grid>
     </Border>
