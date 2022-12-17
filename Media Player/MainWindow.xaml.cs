@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.IconPacks;
+using Media_Player.UserControls;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -27,25 +28,38 @@ namespace Media_Player
     {
         private string _currentPlaying = string.Empty;
         private bool _playing = false;
-        private string _playorPause = "Play";
+        private int _number = 0;
+        private List<UserControls.SongListItem> _songList = new List<UserControls.SongListItem>();
+
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = this;    
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string newName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(newName));
-            }
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            
+        }
 
+        private void DisplayMedia()
+        {
+            for (int i = 0; i < _songList.Count; i++)
+            {
+                SongList.Children.Add(_songList[i]);
+            }
+        }
+
+        private void AddMedia(string name)
+        {
+            UserControls.SongListItem temp = new UserControls.SongListItem();
+            temp.Title = _currentPlaying;
+            temp.Number = _number.ToString();
+            _number++;
+            Button btn = new Button();
+            _songList.Add(temp);
+            SongList.Children.Add(temp);
+            Uri pathMedia = new Uri(_currentPlaying, UriKind.Absolute);
+            player.Source = pathMedia;
         }
 
         private void Selct_file_button_Click(object sender, RoutedEventArgs e)
@@ -54,25 +68,34 @@ namespace Media_Player
             if(screen.ShowDialog() == true)
             {
                 _currentPlaying = screen.FileName;
-                
+                AddMedia(_currentPlaying);
             }
         }
         private void playMedia_Click(object sender, RoutedEventArgs e)
         {
             Binding binding = new Binding("Kind");
             binding.Source = playMedia;
-            if(_playing == true)
+            MediaState mediaState = new MediaState();
+
+            if (_playing == true)
             {
-                iconPlayMedia.Kind = PackIconMaterialKind.Pause;
+                iconPlayMedia.Kind = PackIconMaterialKind.Play;
                 _playing= false;
-                player.Pause();
+                mediaState = MediaState.Pause;
+                player.LoadedBehavior = mediaState;
             }
             else
             {
-                iconPlayMedia.Kind = PackIconMaterialKind.Play;
+                iconPlayMedia.Kind = PackIconMaterialKind.Pause;
                 _playing= true;
-                player.Play();
+                mediaState = MediaState.Play;
+                player.LoadedBehavior = mediaState;
             }
+        }
+
+        private void nextMedia_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
