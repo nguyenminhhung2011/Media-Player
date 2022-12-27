@@ -97,11 +97,26 @@
                                     </Grid>
                                 </Button>
                             </Grid>
-                            <ScrollViewer VerticalScrollBarVisibility="Auto" Height="327">
-								<StackPanel Name="SongList">
-									
-								</StackPanel>
-                            </ScrollViewer>
+                            <!--SongList-->
+                            <ListView Name="SongList" Height="327" ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Background="LightGreen"/>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Name="Media" MouseDown="chooseMedia">
+                                            <Run Text="{Binding Title}" Background="LawnGreen"></Run> 
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            
+                            
+                            
+                            
                         </StackPanel>
                     </Grid>
                 </Border>

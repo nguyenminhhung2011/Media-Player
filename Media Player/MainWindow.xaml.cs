@@ -29,11 +29,12 @@ namespace Media_Player
         private string _currentPlaying = string.Empty;
         private bool _playing = false;
         private int _number = 0;
-        private List<UserControls.SongListItem> _songList = new List<UserControls.SongListItem>();
+        BindingList<UserControls.SongListItem> _songList = new BindingList<UserControls.SongListItem>();
 
         public MainWindow()
         {
             InitializeComponent();
+            SongList.ItemsSource = _songList;
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -41,13 +42,6 @@ namespace Media_Player
             
         }
 
-        private void DisplayMedia()
-        {
-            for (int i = 0; i < _songList.Count; i++)
-            {
-                SongList.Children.Add(_songList[i]);
-            }
-        }
 
         private void AddMedia(string name)
         {
@@ -55,9 +49,7 @@ namespace Media_Player
             temp.Title = _currentPlaying;
             temp.Number = _number.ToString();
             _number++;
-            Button btn = new Button();
             _songList.Add(temp);
-            SongList.Children.Add(temp);
             Uri pathMedia = new Uri(_currentPlaying, UriKind.Absolute);
             player.Source = pathMedia;
         }
@@ -96,6 +88,16 @@ namespace Media_Player
         private void nextMedia_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void chooseMedia(object sender, MouseEventArgs e)
+        {
+            int i = SongList.SelectedIndex;
+            _currentPlaying = _songList[i].Title;
+            _playing = false;
+
+            Uri pathMedia = new Uri(_currentPlaying, UriKind.Absolute);
+            player.Source = pathMedia;
         }
     }
 }
