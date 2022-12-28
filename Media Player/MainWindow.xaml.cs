@@ -29,6 +29,8 @@ namespace Media_Player
         private string _currentPlaying = string.Empty;
         private bool _playing = false;
         private int _number = 0;
+        private int _currentIndex = 0;
+
         BindingList<UserControls.SongListItem> _songList = new BindingList<UserControls.SongListItem>();
 
         public MainWindow()
@@ -42,16 +44,21 @@ namespace Media_Player
             
         }
 
+        private void currentMedia()
+        {
+            Uri pathMedia = new Uri(_currentPlaying, UriKind.Absolute);
+            player.Source = pathMedia;
+        }
 
         private void AddMedia(string name)
         {
             UserControls.SongListItem temp = new UserControls.SongListItem();
+            _currentIndex = _number;
             temp.Title = _currentPlaying;
             temp.Number = _number.ToString();
             _number++;
             _songList.Add(temp);
-            Uri pathMedia = new Uri(_currentPlaying, UriKind.Absolute);
-            player.Source = pathMedia;
+            currentMedia();
         }
 
         private void Selct_file_button_Click(object sender, RoutedEventArgs e)
@@ -85,19 +92,59 @@ namespace Media_Player
             }
         }
 
-        private void nextMedia_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void chooseMedia(object sender, MouseEventArgs e)
         {
             int i = SongList.SelectedIndex;
+            _currentIndex = i;
             _currentPlaying = _songList[i].Title;
             _playing = false;
 
-            Uri pathMedia = new Uri(_currentPlaying, UriKind.Absolute);
-            player.Source = pathMedia;
+            currentMedia();
+        }
+
+        private void skipPrevious_Click(object sender, RoutedEventArgs e)
+        {
+
+            int count = _songList.Count();
+
+            if(count <= 1)
+            {
+                return;
+            }
+            
+            if(_currentIndex == 0)
+            {
+                _currentIndex = count - 1;
+            }
+            else
+            {
+                _currentIndex = _currentIndex - 1;
+            }
+
+            _currentPlaying = _songList[_currentIndex].Title;
+            currentMedia();
+        }
+        private void skipNext_Click(object sender, RoutedEventArgs e)
+        {
+            int count = _songList.Count();
+
+            if (count <= 1)
+            {
+                return;
+            }
+
+            if (_currentIndex == (count - 1))
+            {
+                _currentIndex = 0;
+            }
+            else
+            {
+                _currentIndex++;
+            }
+
+            _currentPlaying = _songList[_currentIndex].Title;
+            currentMedia();
+
         }
     }
 }

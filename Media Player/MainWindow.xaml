@@ -137,14 +137,14 @@
                         <TextBlock Text="ME" Foreground="White" FontSize="22" FontWeight="Bold"/>
                         <TextBlock Text="Taylor Swift" Foreground="#9ae5c3" FontSize="18" FontWeight="SemiBold"/>
                     </StackPanel>
-                    <Button Style="{StaticResource playerButton}">
+                    <Button Style="{StaticResource playerButton}" Name="skipPrevious" Click="skipPrevious_Click">
                         <Icon:PackIconMaterial Kind="SkipPrevious" Height="17" Width="17"/>
                     </Button>
 
                     <Button Style="{StaticResource playerButton}" Name="playMedia" Click="playMedia_Click">
                         <Icon:PackIconMaterial Name="iconPlayMedia" Kind="Play" Height="17" Width="17"/>
                     </Button>
-                    <Button Style="{StaticResource playerButton}" Name="nextMedia" Click="nextMedia_Click">
+                    <Button Style="{StaticResource playerButton}" Name="skipNext" Click="skipNext_Click">
                         <Icon:PackIconMaterial Kind="SkipNext" Height="17" Width="17"/>
                     </Button>
 
