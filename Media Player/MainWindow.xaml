@@ -24,7 +24,6 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
-
             <!--Menu-->
             <Border Background="#F6FDF9" CornerRadius="40 0 0 40" Grid.RowSpan="2">
                 <StackPanel Margin="0 30 0 0">
@@ -90,7 +89,7 @@
                                         Grid.ColumnSpan="2" 
                                         x:Name="Selct_file_button"
                                         Click="Selct_file_button_Click"
-                                        Margin="152,0,0,-8" 
+                                        Margin="152,0,0,-8"             
                                         Foreground="White">
                                     <Grid Margin="3 ">
                                         <TextBlock Text="Select File"/>
@@ -98,8 +97,16 @@
                                 </Button>
                             </Grid>
                             <!--SongList-->
-                            <ListView Name="SongList" Height="327" ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                            <ListView 
+                                      Name="SongList" 
+                                      Height="327" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Visible" 
                                       ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="IsSelected" Value="{Binding IsGroovy}"/>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel Background="LightGreen"/>
@@ -108,15 +115,11 @@
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Name="Media" MouseDown="chooseMedia">
-                                            <Run Text="{Binding Title}" Background="LawnGreen"></Run> 
+                                            <Run Text="{Binding Title}" Background="LawnGreen"></Run>
                                         </TextBlock>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-                            
-                            
-                            
-                            
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -148,24 +151,48 @@
                         <Icon:PackIconMaterial Kind="SkipNext" Height="17" Width="17"/>
                     </Button>
 
-                    <Slider x:Name="slider" IsSelectionRangeEnabled="True" VerticalAlignment="Center" Value="5" Width="350" SelectionEnd="{Binding ElementName=slider,Path=Value}"/>
+                    <Slider x:Name="mediaSlider" 
+                            ValueChanged="progressSlider_ValueChanged"
+                            IsSelectionRangeEnabled="True" 
+                            VerticalAlignment="Center" 
+                            Value="5" Width="350" 
+                            SelectionEnd="{Binding ElementName=slider,Path=Value}"
+                            />
                     <Button Style="{StaticResource playerButton}">
                         <Icon:PackIconMaterial Kind="VolumeMedium" Height="17" Width="17"/>
                     </Button>
+                    <TextBlock x:Name="totalPosition" 
+                               d:Text="3:04" 
+                               Text="0:00" 
+                               Canvas.Left="449" Canvas.Top="325" Height="16"
+                               FontWeight="Bold"
+                               Foreground="White"
+                               FontSize="14"
+                               />
                 </StackPanel>
             </Border>
 
-            <Border Grid.Column="2" Margin="10,134,10,56" Background="White" CornerRadius="20">
+            <Border Grid.Column="2" Margin="10,130,10,43" Background="White" CornerRadius="20">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="20" ShadowDepth="0" Opacity="0.4" Color="Black"/>
                 </Border.Effect>
-                <MediaElement  
-                                Source=""
-                                LoadedBehavior="Manual" 
-                                Name="player" 
-                                Width="400" 
-                                Canvas.Left="70" 
-                                Margin="8,14,-3,23"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Margin="10" x:Name="currentMediaString">
+                        <TextBlock Text="Daily Songs" FontWeight="Bold" FontSize="24" Foreground="Black"/>
+                    </TextBlock>
+                    <MediaElement 
+                        MediaOpened="player_MediaOpened"
+                        Grid.Row="1"
+                        Source=""
+                        LoadedBehavior="Manual" 
+                        Name="player" 
+                        Canvas.Left="70" 
+                        Margin="8,14,15,23"/>
+                </Grid>
             </Border>
         </Grid>
     </Border>

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -32,11 +33,15 @@ namespace Media_Player
         private int _currentIndex = 0;
 
         BindingList<UserControls.SongListItem> _songList = new BindingList<UserControls.SongListItem>();
+        List<BindingList<UserControls.SongListItem>> _listPlaylistSong;
 
         public MainWindow()
         {
             InitializeComponent();
+            _listPlaylistSong.Add(new BindingList<UserControls.SongListItem>());
+            SongList.ItemsSource = _listPlaylistSong[0];
             SongList.ItemsSource = _songList;
+            
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -54,11 +59,25 @@ namespace Media_Player
         {
             UserControls.SongListItem temp = new UserControls.SongListItem();
             _currentIndex = _number;
+            //console.log(_currentIndex.)
             temp.Title = _currentPlaying;
             temp.Number = _number.ToString();
             _number++;
             _songList.Add(temp);
             currentMedia();
+        }
+
+        private String getNameMedia(String str)
+        {
+            String result = "";
+            for(int i  = 0; i < str.Length; i++) { 
+                if (str[i] == '/')
+                {
+                    break;
+                }
+                result+= str[i].ToString();
+            }
+            return result;
         }
 
         private void Selct_file_button_Click(object sender, RoutedEventArgs e)
@@ -94,11 +113,12 @@ namespace Media_Player
 
         private void chooseMedia(object sender, MouseEventArgs e)
         {
+            //var newIndex = SongList.SelectedIndex + ;
             int i = SongList.SelectedIndex;
             _currentIndex = i;
             _currentPlaying = _songList[i].Title;
+            currentMediaString.Text =  i.ToString();
             _playing = false;
-
             currentMedia();
         }
 
@@ -122,6 +142,7 @@ namespace Media_Player
             }
 
             _currentPlaying = _songList[_currentIndex].Title;
+            currentMediaString.Text = _songList[_currentIndex].Title;
             currentMedia();
         }
         private void skipNext_Click(object sender, RoutedEventArgs e)
@@ -141,9 +162,32 @@ namespace Media_Player
             {
                 _currentIndex++;
             }
-
+            currentMediaString.Text = _songList[_currentIndex].Title;
             _currentPlaying = _songList[_currentIndex].Title;
             currentMedia();
+
+        }
+
+        private void progressSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            double value = mediaSlider.Value;
+            TimeSpan newPosition = TimeSpan.FromSeconds(value);
+            //currentMediaString.Text = value.ToString();
+        
+            if(player  != null)
+            {
+                player.Position = newPosition;
+
+            }
+        }
+
+        private void player_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            int hours = player.NaturalDuration.TimeSpan.Hours;
+            int minutes = player.NaturalDuration.TimeSpan.Minutes;
+            int seconds = player.NaturalDuration.TimeSpan.Seconds;
+            totalPosition.Text = $"{hours}:{minutes}:{seconds}";
+            mediaSlider.Maximum = player.NaturalDuration.TimeSpan.TotalSeconds;
 
         }
     }
