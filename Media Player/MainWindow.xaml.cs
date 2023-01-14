@@ -33,7 +33,7 @@ namespace Media_Player
         private int _currentIndex = 0;
 
         BindingList<UserControls.SongListItem> _songList = new BindingList<UserControls.SongListItem>();
-        List<BindingList<UserControls.SongListItem>> _listPlaylistSong;
+        List<BindingList<UserControls.SongListItem>> _listPlaylistSong = new List<BindingList<UserControls.SongListItem>>();
 
         public MainWindow()
         {
