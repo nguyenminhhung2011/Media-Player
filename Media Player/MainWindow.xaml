@@ -11,6 +11,7 @@
         WindowStyle="None"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
+        KeyDown="Window_KeyDown"
         >
     <Border Background="White" CornerRadius="40" MouseDown="Border_MouseDown">
         <Grid>
@@ -181,13 +182,13 @@
                         <Icon:PackIconMaterial Kind="SkipPrevious" Height="17" Width="17"/>
                     </Button>
 
-                    <Button Style="{StaticResource playerButton}" Name="playMedia" Click="playMedia_Click">
+                    <Button Style="{StaticResource playerButton}" Name="playMedia"  Click="playMedia_Click" IsDefault="True">
                         <Icon:PackIconMaterial Name="iconPlayMedia" Kind="Play" Height="17" Width="17"/>
                     </Button>
-                    <Button Style="{StaticResource playerButton}" Name="skipNext" Click="skipNext_Click">
+                    <Button Style="{StaticResource playerButton}" Name="skipNext" Click="skipNext_Click" IsDefault="True">
                         <Icon:PackIconMaterial Kind="SkipNext" Height="17" Width="17"/>
                     </Button>
-                    <Button Style="{StaticResource playerButton}" Name="shuffle" Click="shuffle_Click">
+                    <Button Style="{StaticResource playerButton}" Name="shuffle" Click="shuffle_Click" IsDefault="True">
                         <Icon:PackIconMaterial Kind="Replay" Height="17" Width="17" Name="iconShuffle"/>
                     </Button>
                     <Slider x:Name="mediaSlider" 
