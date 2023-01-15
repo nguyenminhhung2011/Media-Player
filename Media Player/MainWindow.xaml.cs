@@ -220,7 +220,6 @@ namespace Media_Player
                 iconShuffle.Kind = PackIconMaterialKind.Replay;
 
             }
-
         }
 
         private void player_MediaEnded(object sender, RoutedEventArgs e)
@@ -316,12 +315,17 @@ namespace Media_Player
             }
             else if(e.Key == Key.X)
             {
-                shuffle.RaiseEvent(new RoutedEventArgs());
+                shuffle.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }
-            else if(e.Key == Key.Space)
+            else if(e.Key == Key.S)
             {
                 playMedia.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }
+        }
+
+        private void VSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            player.Volume = (double)VSlider.Value;   
         }
     }
 }
