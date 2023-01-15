@@ -21,7 +21,8 @@
                 </Style.Triggers>
         </Style>
     </Border.Style>
-    <Grid>
+        <Grid ToolTip="{Binding ElementName=songListItem, 
+            Path=Title}" ToolTipService.ShowDuration="5000">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>

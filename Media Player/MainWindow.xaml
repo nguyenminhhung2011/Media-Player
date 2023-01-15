@@ -150,7 +150,9 @@
                     <Button Style="{StaticResource playerButton}" Name="skipNext" Click="skipNext_Click">
                         <Icon:PackIconMaterial Kind="SkipNext" Height="17" Width="17"/>
                     </Button>
-
+                    <Button Style="{StaticResource playerButton}" Name="shuffle" Click="shuffle_Click">
+                        <Icon:PackIconMaterial Kind="Shuffle" Height="17" Width="17"/>
+                    </Button>
                     <Slider x:Name="mediaSlider" 
                             ValueChanged="progressSlider_ValueChanged"
                             IsSelectionRangeEnabled="True" 
