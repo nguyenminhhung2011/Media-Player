@@ -61,16 +61,14 @@ namespace Media_Player
 
         private void AddMedia(string name)
         {
-           if(_listPlaylist.Count() > 0)
-            {
-                UserControls.SongListItem temp = new UserControls.SongListItem();
-                _currentIndex = _listPlaylist[_currentPlaylistIndex].items.Count();
-                temp.Title = _currentPlaying;
-                temp.Number = _number.ToString();
-                _number++;
-                _listPlaylist[_currentPlaylistIndex].items.Add(temp);
-                currentMedia();
-            }
+            UserControls.SongListItem temp = new UserControls.SongListItem();
+            _currentIndex = _number;
+            //console.log(_currentIndex.)
+            temp.Title = _currentPlaying;
+            temp.Number = _number.ToString();
+            _number++;
+            _songList.Add(temp);
+            currentMedia();
         }
 
         private String getNameMedia(String str)
@@ -133,17 +131,16 @@ namespace Media_Player
             currentMedia();
         }
 
-        private void skipPrevious_Click(object sender, RoutedEventArgs e)
+        void skipPrevious1()
         {
-
             int count = _songList.Count();
 
-            if(count <= 1)
+            if (count <= 1)
             {
                 return;
             }
-            
-            if(_currentIndex == 0)
+
+            if (_currentIndex == 0)
             {
                 _currentIndex = count - 1;
             }
@@ -154,7 +151,13 @@ namespace Media_Player
 
             _currentPlaying = _songList[_currentIndex].Title;
             currentMediaString.Text = _songList[_currentIndex].Title;
+            iconPlayMedia.Kind = PackIconMaterialKind.Play;
             currentMedia();
+        }
+
+        private void skipPrevious_Click(object sender, RoutedEventArgs e)
+        {
+            skipPrevious1();
         }
         private void skipNext_Click(object sender, RoutedEventArgs e)
         {
@@ -175,6 +178,7 @@ namespace Media_Player
             }
             currentMediaString.Text = _songList[_currentIndex].Title;
             _currentPlaying = _songList[_currentIndex].Title;
+            iconPlayMedia.Kind = PackIconMaterialKind.Play;
             currentMedia();
 
         }
@@ -294,6 +298,27 @@ namespace Media_Player
                     currentMediaString.Text = "";
                 }
 
+            }
+        }
+
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.A)
+            {
+                skipPrevious.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            }
+            else if(e.Key == Key.D)
+            {
+                skipNext.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            }
+            else if(e.Key == Key.X)
+            {
+                shuffle.RaiseEvent(new RoutedEventArgs());
+            }
+            else if(e.Key == Key.Space)
+            {
+                playMedia.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }
         }
     }
