@@ -1,0 +1,21 @@
+﻿<Window x:Class="Media_Player.AddPlaylistWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Media_Player"
+        mc:Ignorable="d"
+        Title="AddPlaylistWindow" Height="182" Width="456">
+    <Border Background="#03bf69" CornerRadius="40" >
+        <Canvas Background="#03bf69">
+            <Label Content="CREATE PLAYLIST" FontWeight="ExtraBlack" Canvas.Left="170"/>
+
+            <Label Content="PlayList name: " FontWeight="Bold" Canvas.Left="69" Canvas.Top="50" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBox x:Name="nameTextBox" Text="{Binding playlistName}" Width="194" Canvas.Left="168" Canvas.Top="54" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+            <Button x:Name="okButton" Content="OK" IsDefault="True" Click="okButton_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Width="73" Height="26" Canvas.Left="127" Canvas.Top="120"/>
+            <Button x:Name="cancelButton" Content="Cancel" IsCancel="True" Click="cancelButton_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Width="73" Height="26" Canvas.Left="283" Canvas.Top="120"/>
+
+        </Canvas>
+    </Border>
+</Window>

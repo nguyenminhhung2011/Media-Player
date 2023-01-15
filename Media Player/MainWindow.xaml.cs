@@ -31,19 +31,21 @@ namespace Media_Player
         private bool _playing = false;
         private int _number = 0;
         private int _currentIndex = 0;
+        private int _currentPlaylistIndex = 0;
         private bool _shuffleMode = false;
+        
+
 
         BindingList<UserControls.SongListItem> _songList = new BindingList<UserControls.SongListItem>();
-        List<BindingList<UserControls.SongListItem>> _listPlaylistSong = new List<BindingList<UserControls.SongListItem>>();
+        
+        BindingList<Playlist> _listPlaylist = new BindingList<Playlist>();
 
         public MainWindow()
         {
             InitializeComponent();
-            _listPlaylistSong.Add(new BindingList<UserControls.SongListItem>());
-            SongList.ItemsSource = _listPlaylistSong[0];
             SongList.ItemsSource = _songList;
             mediaSlider.Value = 0;
-            
+            PlaylistList.ItemsSource = _listPlaylist;
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -59,14 +61,16 @@ namespace Media_Player
 
         private void AddMedia(string name)
         {
-            UserControls.SongListItem temp = new UserControls.SongListItem();
-            _currentIndex = _number;
-            //console.log(_currentIndex.)
-            temp.Title = _currentPlaying;
-            temp.Number = _number.ToString();
-            _number++;
-            _songList.Add(temp);
-            currentMedia();
+           if(_listPlaylist.Count() > 0)
+            {
+                UserControls.SongListItem temp = new UserControls.SongListItem();
+                _currentIndex = _listPlaylist[_currentPlaylistIndex].items.Count();
+                temp.Title = _currentPlaying;
+                temp.Number = _number.ToString();
+                _number++;
+                _listPlaylist[_currentPlaylistIndex].items.Add(temp);
+                currentMedia();
+            }
         }
 
         private String getNameMedia(String str)
@@ -123,8 +127,9 @@ namespace Media_Player
             }
             _currentIndex = i;
             _currentPlaying = _songList[i].Title;
-            currentMediaString.Text =  i.ToString();
-            _playing = false;
+            currentMediaString.Text = _songList[i].Title.Split('\\').Last();
+            mediaSlider.Value = 0;
+            _playing = true;
             currentMedia();
         }
 
@@ -181,8 +186,8 @@ namespace Media_Player
             //currentMediaString.Text = value.ToString();
         
             if(player  != null)
-            {
                 player.Position = newPosition;
+            {
 
             }
         }
@@ -237,6 +242,58 @@ namespace Media_Player
                 _currentPlaying = _songList[_currentIndex].Title;
                 currentMediaString.Text = _songList[_currentIndex].Title;
                 currentMedia();
+            }
+        }
+
+        private void stopPlayer()
+        {
+            Binding binding = new Binding("Kind");
+            binding.Source = playMedia;
+            MediaState mediaState = new MediaState();
+            _playing = false;
+            mediaState = MediaState.Pause;
+            player.LoadedBehavior = mediaState;
+        }
+        private void StackPanel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            stopPlayer();
+            int i = PlaylistList.SelectedIndex;
+            if (i == -1)
+            {
+                i = 0;
+            }
+            _currentPlaylistIndex = i;
+            _currentIndex = 0;
+            _songList = _listPlaylist[i].items;
+            SongList.ItemsSource = _songList;
+        }
+
+        private void CreatePl_Click(object sender, RoutedEventArgs e)
+        {
+            var screen = new AddPlaylistWindow();
+            if (screen.ShowDialog() == true)
+            {
+                _listPlaylist.Add(screen.newPlaylist);
+            }
+            else
+            {
+                // do nothing
+            }
+        }
+
+        private void DeleteSong_Click(object sender, RoutedEventArgs e)
+        {
+            if(_listPlaylist.Count > 0)
+            {
+                if (_listPlaylist[_currentPlaylistIndex].items.Count > 0)
+                {
+                    _listPlaylist[_currentPlaylistIndex].items.RemoveAt(_currentIndex);
+                    _currentIndex = 0;
+                    _songList = _listPlaylist[_currentIndex].items;
+                    SongList.ItemsSource = _songList;
+                    currentMediaString.Text = "";
+                }
+
             }
         }
     }

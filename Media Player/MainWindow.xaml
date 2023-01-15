@@ -33,20 +33,56 @@
                         <Ellipse Fill="#2acb42" Width="10" Height="10"/>
                     </StackPanel>
 
-                    <TextBlock Text="LIBRARY" Style="{StaticResource menuTitle}"/>
-
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                            <TextBlock Text="LIBRARY" Style="{StaticResource menuTitle}"
+                                       Margin="50 10"/>
+                            <Button Style="{StaticResource playerButton}" 
+                                Name="CreatePl" Click="CreatePl_Click" >
+                                <Icon:PackIconMaterial Kind="Plus" Height="15" Width="15" Foreground="Black"/>
+                            </Button>
+                        </StackPanel>
+                       
+                    </StackPanel>
+                    
                     <Button Style="{StaticResource menuButton}" Background="#02be68" Foreground="White">
                         <Grid>
                             <TextBlock Text="Home" Margin="0 0 0 2"/>
                             <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}" Visibility="Visible" Margin="120,0,0,0"/>
                         </Grid>
                     </Button>
-                    <Button Style="{StaticResource menuButton}" >
-                        <Grid>
-                            <TextBlock Text="Playlist" Margin="0 0 0 2"/>
-                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}" Margin="120,0,0,0"/>
-                        </Grid>
-                    </Button>
+                    <ListView         Margin="20 10 0 0"
+                                      Name="PlaylistList" 
+                                      Height="327" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="IsSelected" Value="{Binding IsGroovy}"/>
+                            </Style>
+
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Background="White"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate >
+                                <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown">
+                                    <Ellipse Fill="#2acb42" Width="10" Height="10" Margin="0 0 10 0"/>
+                                    <TextBlock Name="Playlist" >
+                                            <Run Text="{Binding playlistName}" 
+                                                 FontWeight="Bold"
+                                                 FontSize="14">
+                                            </Run>
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+
 
                 </StackPanel>
             </Border>
@@ -98,6 +134,7 @@
                             </Grid>
                             <!--SongList-->
                             <ListView 
+                                      Margin="0 10"
                                       Name="SongList" 
                                       Height="327" 
                                       ScrollViewer.VerticalScrollBarVisibility="Visible" 
@@ -115,7 +152,7 @@
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Name="Media" MouseDown="chooseMedia">
-                                            <Run Text="{Binding Title}" Background="LawnGreen"></Run>
+                                            <Run Text="{Binding Title}" FontWeight="Bold" Foreground="Black" FontSize="12"></Run>
                                         </TextBlock>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
@@ -181,12 +218,19 @@
                 </Border.Effect>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="74"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Margin="10" x:Name="currentMediaString">
-                        <TextBlock Text="Daily Songs" FontWeight="Bold" FontSize="24" Foreground="Black"/>
-                    </TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="0">
+                        <TextBlock Grid.Row="0" Margin="10" >
+                            <TextBlock Text="Song Name" FontWeight="Bold" FontSize="24" Foreground="Black" Name="currentMediaString"/>
+                        </TextBlock>
+                        <Button Style="{StaticResource playerButton}" 
+                                Name="DeleteSong"  Click="DeleteSong_Click">
+                            <Icon:PackIconMaterial Kind="Delete" Height="15" Width="15" Foreground="Red"/>
+                        </Button>
+                    </StackPanel>
+                    
                     <MediaElement 
                         MediaOpened="player_MediaOpened"
                         MediaEnded="player_MediaEnded"
