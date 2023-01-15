@@ -150,8 +150,9 @@ namespace Media_Player
             }
 
             _currentPlaying = _songList[_currentIndex].Title;
-            currentMediaString.Text = _songList[_currentIndex].Title;
+            currentMediaString.Text = _songList[_currentIndex].Title.Split('\\').Last();
             iconPlayMedia.Kind = PackIconMaterialKind.Play;
+            mediaSlider.Value = 0;
             currentMedia();
         }
 
@@ -176,9 +177,10 @@ namespace Media_Player
             {
                 _currentIndex++;
             }
-            currentMediaString.Text = _songList[_currentIndex].Title;
+            currentMediaString.Text = _songList[_currentIndex].Title.Split('\\').Last();
             _currentPlaying = _songList[_currentIndex].Title;
             iconPlayMedia.Kind = PackIconMaterialKind.Play;
+            mediaSlider.Value = 0;
             currentMedia();
 
         }
@@ -230,7 +232,7 @@ namespace Media_Player
                 {
                     _currentIndex += 1;
                     _currentPlaying = _songList[_currentIndex].Title;
-                    currentMediaString.Text = _songList[_currentIndex].Title;
+                    currentMediaString.Text = _songList[_currentIndex].Title.Split('\\').Last();
                     currentMedia();
                 }
             }
@@ -244,7 +246,7 @@ namespace Media_Player
                 }
                 _currentIndex = rnd.Next(0, len);
                 _currentPlaying = _songList[_currentIndex].Title;
-                currentMediaString.Text = _songList[_currentIndex].Title;
+                currentMediaString.Text = _songList[_currentIndex].Title.Split('\\').Last();
                 currentMedia();
             }
         }
