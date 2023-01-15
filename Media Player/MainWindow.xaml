@@ -151,7 +151,7 @@
                         <Icon:PackIconMaterial Kind="SkipNext" Height="17" Width="17"/>
                     </Button>
                     <Button Style="{StaticResource playerButton}" Name="shuffle" Click="shuffle_Click">
-                        <Icon:PackIconMaterial Kind="Shuffle" Height="17" Width="17"/>
+                        <Icon:PackIconMaterial Kind="Replay" Height="17" Width="17" Name="iconShuffle"/>
                     </Button>
                     <Slider x:Name="mediaSlider" 
                             ValueChanged="progressSlider_ValueChanged"
@@ -166,6 +166,7 @@
                     <TextBlock x:Name="totalPosition" 
                                d:Text="3:04" 
                                Text="0:00" 
+                                
                                Canvas.Left="449" Canvas.Top="325" Height="16"
                                FontWeight="Bold"
                                Foreground="White"
@@ -188,6 +189,7 @@
                     </TextBlock>
                     <MediaElement 
                         MediaOpened="player_MediaOpened"
+                        MediaEnded="player_MediaEnded"
                         Grid.Row="1"
                         Source=""
                         LoadedBehavior="Manual" 
