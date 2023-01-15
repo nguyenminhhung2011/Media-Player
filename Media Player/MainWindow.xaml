@@ -141,6 +141,7 @@
                         <TextBlock Text="ME" Foreground="White" FontSize="22" FontWeight="Bold"/>
                         <TextBlock Text="Taylor Swift" Foreground="#9ae5c3" FontSize="18" FontWeight="SemiBold"/>
                     </StackPanel>
+                    <Slider x:Name="VSlider" Orientation="Vertical" Maximum="1" TickFrequency="0.1" SmallChange="0.01" LargeChange="0.05" ValueChanged="VSlider_ValueChanged" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0"></Slider>
                     <Button Style="{StaticResource playerButton}" Name="skipPrevious" Click="skipPrevious_Click">
                         <Icon:PackIconMaterial Kind="SkipPrevious" Height="17" Width="17"/>
                     </Button>
