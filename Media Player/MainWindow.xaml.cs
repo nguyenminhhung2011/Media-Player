@@ -31,6 +31,7 @@ namespace Media_Player
         private bool _playing = false;
         private int _number = 0;
         private int _currentIndex = 0;
+        private bool _shuffleMode = false;
 
         BindingList<UserControls.SongListItem> _songList = new BindingList<UserControls.SongListItem>();
         List<BindingList<UserControls.SongListItem>> _listPlaylistSong = new List<BindingList<UserControls.SongListItem>>();
@@ -41,6 +42,7 @@ namespace Media_Player
             _listPlaylistSong.Add(new BindingList<UserControls.SongListItem>());
             SongList.ItemsSource = _listPlaylistSong[0];
             SongList.ItemsSource = _songList;
+            mediaSlider.Value = 0;
             
         }
 
@@ -197,18 +199,45 @@ namespace Media_Player
 
         private void shuffle_Click(object sender, RoutedEventArgs e)
         {
-            Random random= new Random();
-            int len = _songList.Count();
-            if(len < 1) {
-                return;
+            _shuffleMode = !_shuffleMode;
+            if (_shuffleMode)
+            {
+                iconShuffle.Kind = PackIconMaterialKind.Shuffle;
             }
-            int i = random.Next(0, len);
-            _currentIndex = i;
-            _currentPlaying = _songList[i].Title;
-            currentMediaString.Text = i.ToString();
-            _playing = false;
-            currentMedia();
-            playMedia_Click(sender, e);
-        }   
+            else
+            {
+                iconShuffle.Kind = PackIconMaterialKind.Replay;
+
+            }
+
+        }
+
+        private void player_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            mediaSlider.Value = 0;
+            if (!_shuffleMode)
+            {
+                if (_currentIndex < _songList.Count - 1)
+                {
+                    _currentIndex += 1;
+                    _currentPlaying = _songList[_currentIndex].Title;
+                    currentMediaString.Text = _songList[_currentIndex].Title;
+                    currentMedia();
+                }
+            }
+            else
+            {
+                Random rnd = new Random();
+                int len = _songList.Count();
+                if (len < 1)
+                {
+                    return;
+                }
+                _currentIndex = rnd.Next(0, len);
+                _currentPlaying = _songList[_currentIndex].Title;
+                currentMediaString.Text = _songList[_currentIndex].Title;
+                currentMedia();
+            }
+        }
     }
 }
