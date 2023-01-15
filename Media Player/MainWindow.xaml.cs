@@ -115,6 +115,10 @@ namespace Media_Player
         {
             //var newIndex = SongList.SelectedIndex + ;
             int i = SongList.SelectedIndex;
+            if( i == -1)
+            {
+                i = 0;
+            }
             _currentIndex = i;
             _currentPlaying = _songList[i].Title;
             currentMediaString.Text =  i.ToString();
@@ -190,5 +194,21 @@ namespace Media_Player
             mediaSlider.Maximum = player.NaturalDuration.TimeSpan.TotalSeconds;
 
         }
+
+        private void shuffle_Click(object sender, RoutedEventArgs e)
+        {
+            Random random= new Random();
+            int len = _songList.Count();
+            if(len < 1) {
+                return;
+            }
+            int i = random.Next(0, len);
+            _currentIndex = i;
+            _currentPlaying = _songList[i].Title;
+            currentMediaString.Text = i.ToString();
+            _playing = false;
+            currentMedia();
+            playMedia_Click(sender, e);
+        }   
     }
 }

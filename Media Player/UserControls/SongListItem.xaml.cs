@@ -51,5 +51,6 @@ namespace Media_Player.UserControls
         }
         public static readonly DependencyProperty isActiveProperty = DependencyProperty.Register("IsActive", typeof(string), typeof(SongListItem));
 
+
     }
 }
